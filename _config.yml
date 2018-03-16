@@ -9,7 +9,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Garden"
+title                    : "Garden Code"
 title_separator          : "-"
 name                     : "Jiayong Mo"
 description              : "This is my first Blog!"
@@ -17,6 +17,8 @@ url                      : # "https://alphagarden.github.io/"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "AlphaGarden/AlphaGarden.github.io"
 teaser                   : "/assets/images/sunset.jpeg"
+header:
+  image: "/assets/images/beach.jpg"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
