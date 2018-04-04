@@ -1,19 +1,28 @@
 ---
 layout: single
-title:  "simple REST api on node.js and openstack sdk for python"
+title:  "REST api on node.js and openstack sdk for python"
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.1"
+  overlay_image: /
+  cta_label: "Try it!"
+  cta_url: "https://github.com/AlphaGarden"
+  caption: "Photo credit: [**_Jiayong Mo_**](https://alphagarden.github.io)"
+classes: wide
 date:   2018-04-03 23:03:01 -0600
+
+excerpt: "A simple tutorial to create a REST api to use openstack sdk for python. In this blog, we will go through some elementary utilization on node and openstack api."
 categories: Node.js Openstack REST
 ---
 
-### 1. Goal
+### 1. What we want to achieve
 
-In this passage, we're going to discuss about how to build a rest api for [openstack sdk][openstack-url] on MacOS. The openstack sdk document is very detailed and informational for developer, but this also results in the disadvantage that we are not ver easy to find out what we want in these tons of documents. 
-
-Well, this passage is about how to use `NodeJs` and `opensdk sdk` to deploy  `REST API` to help us query the instance status, such as instance `status`, `keyname`, `flavor`, `image`, `instance id`, `name`, etc. And we' are going to use openstack sdk for python to create a api to spawn up a new instance. 
-
+In this passage, we're going to discuss about how to build a rest api for [openstack sdk][openstack-url] on MacOS. The openstack sdk document is very detailed and informational for developer, but this also results in the disadvantage that we are not easy to find out what we want in these tons of documents. 
+Well, this passage is about how to use `NodeJs` and `openstack sdk` to deploy  `REST API` to help us query the instance status, such as instance `status`, `keyname`, `flavor`, `image`, `instance id`, `name`, etc. And we're  going to create a api by openstack sdk for python to  to spawn up a new instance.
+{: .text-justify}
 ### 2. Environment set up
 
-#### 2.1 Intall the openstack sdk by pip and Node.js by Homebrew
+#### 2.1 Install the openstack sdk by pip and Node.js by Homebrew
 
 Install the Node.js by [Homebrew](https://brew.sh/)
 
@@ -28,11 +37,11 @@ pip install python-openstacksdk
 ```
 
 If you fail to install the `python-openstacksdk`  because of the permission, then you can use this command, add `--user` to the end of previous command and run it again. But the python-openstacksdk only support `python3` and which means that you should gurantee that you machine is capable to  run python 3. 
-
+{: .text-justify}
 #### 2.2 Create a configuration file
 
 Modify the `username` and `password`  to based on your credential in `cloud.yaml` file, and put this file in the same dierctory as `demo.py` in the below. 
-
+{: .text-justify}
 ```yaml
 # clouds.yaml
 clouds:
@@ -40,7 +49,7 @@ clouds:
     # Modify the region if necessary
     region_name: RegionOne
     auth:
-      # Change usename and password to yours.
+      # Change username and password to yours.
       username: 'xxxxxxx'
       password: xxxxxxx
       # The porject you are working on the openstack cloud.
@@ -54,8 +63,8 @@ clouds:
 
 #### 3.1 Create a demo.py in the node project directory
 
-We create a python script file named demo.py, the script mainly has two functionilties, one is to query the status of all instances with `instances_status` and create a new instance with `create_instance`. After we finish those functions, we need to conside how to return the result to the program of Node.js. In this program, we only to need to print the result out the program in Node.js will receive the message from stdout. 
-
+We create a python script file named demo.py, the script mainly has two functions, one is to query the status of all instances with `instances_status` and create a new instance with `create_instance`. After we finish those functions, we need to conside how to return the result to the program of Node.js. In this program, we only to need to print the result out the program in Node.js will receive the message from stdout.
+{: .text-justify}
 ```python
 import openstack.cloud
 import sys
@@ -132,8 +141,8 @@ if __name__ == '__main__':
   * `express~4.16.0`
   * `python-shell~0.5.0`
 
-And we can first create a diectory with arbitrary name and enter that directory, then create a `index.js`file and use [npm][npm-url] to initilize the project. For the `index.js` file we are go implement in the following way. The main idea of the following code is to use `python-shell` module to communicate with python program. Every time we get a request from the client, we send the parameters to the program, and the python program will get the parameters from `stdin` . After being processed by `demo.py`, the node program will receive the message from the `stdout` of python, which is the entire procedure followed by the communication between nodejs program and python script program. 
-
+And we can first create a diectory with arbitrary name and enter that directory, then create a `index.js`file and use [npm][npm-url] to initialize the project. For the `index.js` file we will implement in the following way. The main idea of the following code is to use `python-shell` module to communicate with python program. Every time we get a request from the client, we send the parameters to the program, and the python program will get the parameters from `stdin` . After being processed by `demo.py`, the node program will receive the message from the `stdout` of python, which is the entire procedure followed by the communication between nodejs program and python script program.
+{: .text-justify}
 ```javascript
 // Packages SET UP
 var express = require('express')
@@ -267,12 +276,13 @@ node index.js
   }
   ```
 
-* Run the request for instance 
+* Run the request for instance creation
 
   The reposne will be the detailed information of the new instance. 
 
   ```html
-  http://[server_ip]:[8081]/create_instance?instanceName=testByRestApi2&imageName=CC-Ubuntu16.04&keypairName=rsa_key&flavorName=m1.small&securityGroup=Restricted IPv4
+  http://[server_ip]:[8081]/create_instance?instanceName=testByRestApi2&imageName=CC-Ubuntu16.04 /
+  &keypairName=rsa_key&flavorName=m1.small&securityGroup=Restricted IPv4
   ```
 
   And an instance will be spawned on the openstack cloud. 

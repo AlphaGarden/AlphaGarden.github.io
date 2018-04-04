@@ -317,3 +317,9 @@
     font-size: 1em;
   }
 }
+
+/* Customize the <a> tag to be no decoration */
+.archive a {
+  color: inherit;
+  text-decoration: none;
+}

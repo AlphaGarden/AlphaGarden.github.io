@@ -1,10 +1,10 @@
 # main links
 main:
-  - title: "Projects"
-    url: https://github.com/AlphaGarden
-  - title: "About"
+  - title: "Blog"
+    url: ""
+  - title: "Photograph"
     url: ""
   - title: "Just For Fun"
     url: ""
-  - title: "Notes"
+  - title: "About me"
     url: ""
