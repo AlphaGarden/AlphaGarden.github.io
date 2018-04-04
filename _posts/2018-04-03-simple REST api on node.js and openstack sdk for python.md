@@ -13,7 +13,7 @@ Well, this passage is about how to use `NodeJs` and `opensdk sdk` to deploy  `RE
 
 ### 2. Environment set up
 
-#### 2.1 Intall the openstack sdk by pip and Node.js by Homebrew
+#####2.1 Intall the openstack sdk by pip and Node.js by Homebrew
 
 Install the Node.js by [Homebrew](https://brew.sh/)
 
@@ -29,7 +29,7 @@ pip install python-openstacksdk
 
 If you fail to install the `python-openstacksdk`  because of the permission, then you can use this command, add `--user` to the end of previous command and run it again. But the python-openstacksdk only support `python3` and which means that you should gurantee that you machine is capable to  run python 3. 
 
-####2.2 Create a configuration file
+#####2.2 Create a configuration file
 
 Modify the  ` username` and `password   `  to based on your credential in `cloud.yaml` file, and put this file in the same dierctory as `demo.py` in the below. 
 
@@ -52,7 +52,7 @@ clouds:
 
 ### 3. Code
 
-#### 3.1 Create a demo.py in the node project directory
+#####3.1 Create a demo.py in the node project directory
 
 We create a python script file named demo.py, the script mainly has two functionilties, one is to query the status of all instances with `instances_status` and create a new instance with `create_instance`. After we finish those functions, we need to conside how to return the result to the program of Node.js. In this program, we only to need to print the result out the program in Node.js will receive the message from stdout. 
 
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
 ```
 
-####3.2 Create a node project
+#####3.2 Create a node project
 
 * Dependency:
   * `express~4.16.0`
@@ -222,7 +222,7 @@ var server = app.listen(8081, function(){
 
 ### 4. Run the project
 
-####4.1 Spawn up the server and run index.js
+#####4.1 Spawn up the server and run index.js
 
 ```shell
 node index.js
@@ -239,7 +239,7 @@ node index.js
   ```
   And we will get the response
 
-  ```json
+  ```
   {  
      'status':'ACTIVE',
      'key_name':'rsa_key',
