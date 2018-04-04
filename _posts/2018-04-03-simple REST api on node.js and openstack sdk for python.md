@@ -277,7 +277,7 @@ node index.js
 
   And an instance will be spawned on the openstack cloud. 
 
-  ![result](assets/images/result.jpg)
+  ![result](/assets/images/result.jpg)
 
 
 
