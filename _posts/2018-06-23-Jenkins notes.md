@@ -9,7 +9,7 @@ header:
   cta_url: "https://github.com/AlphaGarden"
   caption: "Photo credit: [**_Jiayong Mo_**](https://alphagarden.github.io)"
 classes: wide
-date:   2018-06-57 16:26:01 -0600
+date:   2018-06-23 16:26:01 -0600
 
 excerpt: "A personal notes for Jenkins learning"
 categories: CI Jenkins
