@@ -15,8 +15,6 @@ excerpt: "A personal notes for Docker learning"
 categories: Docker
 ---
 
-#### Docker notes
-
 
 ``` bash
 docker run -ti bash encryption xxxx

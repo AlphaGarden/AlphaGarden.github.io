@@ -12,10 +12,8 @@ classes: wide
 date:   2018-06-23 16:51:01 -0600
 
 excerpt: "A note for kubernetes learning"
-categories: Node.js Openstack REST
+categories: Google Kubernetes eBay
 ---
-
-#### Tess notes (kubernetes)
 
 * Create resource from a file or from stdin.
 `tess kubectl create`
@@ -68,7 +66,7 @@ spec:
 * **metadata** - Data that helps uniquely identify the object, including a `name`string, `UID`, and optional `namespace`
 * **spec** -[Podspec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#podspec-v1-core), [DeploymentSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#deploymentspec-v1-apps)
 
-####`Pod`
+#### `Pod`
 A pod encapsulates an application container(or in cases, multiple containers), storage resources, an unique network IP, and options that govern how the container(s) should run. 
 A pod represents a unit of deployment: a single instance of an application in kubernetes.
 * **Pods that run a single container**

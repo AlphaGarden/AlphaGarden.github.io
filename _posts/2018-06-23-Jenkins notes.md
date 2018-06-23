@@ -15,8 +15,6 @@ excerpt: "A personal notes for Jenkins learning"
 categories: CI Jenkins
 ---
 
-#### Jenkins notes(Continuous Integration)
-
 ##### What is continuous integration (CI) ?
 Continuous Integration is the practice of merging all developer working copies to a shared mainline several times a day. 
 [reference material](https://en.wikipedia.org/wiki/Continuous_integration)

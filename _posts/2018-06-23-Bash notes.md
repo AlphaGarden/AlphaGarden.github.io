@@ -15,8 +15,6 @@ excerpt: "A personal notes for Bash learning"
 categories: Bash Shell Script
 ---
 
-#### Bash notes
-
 In Bash, 0 means everything goes well, non 0 means error happens
 
 
@@ -166,5 +164,3 @@ function name [()] compound-command [ redirections ]
 * [Positional Parameters](https://tiswww.case.edu/php/chet/bash/bashref.html#Positional-Parameters)
 * [Special Parameters](https://tiswww.case.edu/php/chet/bash/bashref.html#Special-Parameters)
 
-
-component-tag
