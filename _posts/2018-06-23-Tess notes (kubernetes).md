@@ -16,25 +16,38 @@ categories: Google Kubernetes eBay
 ---
 
 * Create resource from a file or from stdin.
-`tess kubectl create`
+  `tess kubectl create`
+
 * Display one or many resource.
-`tess kubectl get`
+  `tess kubectl get`
+
 * Show details of a specific resource or group of resources.  This command joins many API calls together to form a detailed description of a given resource or group of resources. 
-`tess kubectl describe`
+  `tess kubectl describe`
+
 * Execute a command in a container.
-`tess kubectl exec`
+  `tess kubectl exec`
+
 * Delete resources by filenames, stdin, resources and names, or by resources, and label selector.
-`tess kubectl delete`
+  `tess kubectl delete`
+
 * Get the account information 
-`tess kubectl get account xxx -oyaml`
+  `tess kubectl get account xxx -oyaml`
+
 * Create a new name space 
-`tess kubectl create namepsace xxxx`
+  `tess kubectl create namepsace xxxx`
+
 * Get all  information for this namespace
-`tess kubectl get all -n xxxx `
+  `tess kubectl get all -n xxxx `
+
 * Deploy an application to the namespace
-`tess kubectl create -f xxxx -n xxxx`
+  `tess kubectl create -f xxxx -n xxxx`
+
 * Create and run a particular image, possibly replicated. Create a deployment or job to manage the created container(s).
-`tess kubectl run`
+  `tess kubectl run`
+
+* Get bash or ssh into the container 
+
+  `tess kubectl exec -ti <container-name> bash -n <namespace>`
 
 #### `Kubernetes Objects`
 Every kubernetes object includes two nested object fields that govern the object's configuration: the object `spec` and the object `status`. 
