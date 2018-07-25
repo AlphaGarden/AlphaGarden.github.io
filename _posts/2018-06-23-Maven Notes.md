@@ -15,6 +15,9 @@ excerpt: "A note for maven learning"
 categories: Apache Maven
 ---
 
+[Maven Tutorial Reference](https://www.tutorialspoint.com/maven/index.htm)
+
 ##### Dependency Management
+
 The dependency management section is a mechanism for centralizing dependency information. 
 * Just like when you have a set of projects that inherits a common parent it's possible to put all information about the dependency in the common POM and have simpler references to the artifacts in the child POMs. 

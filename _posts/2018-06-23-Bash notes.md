@@ -17,6 +17,16 @@ categories: Bash Shell Script
 
 In Bash, 0 means everything goes well, non 0 means error happens
 
+```bash
+#!/bin/bash
+```
+
+```
+#!interpreter [optional-arg]
+```
+
+In a `Unix-like` operating systems, when a text file with a shebang is used as if it is an executable, the program loader parses the rest of the file's initial line as a `interpreter directive`.
+
 
 #### 1. Simple Command 
 
