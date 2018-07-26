@@ -174,3 +174,54 @@ function name [()] compound-command [ redirections ]
 * [Positional Parameters](https://tiswww.case.edu/php/chet/bash/bashref.html#Positional-Parameters)
 * [Special Parameters](https://tiswww.case.edu/php/chet/bash/bashref.html#Special-Parameters)
 
+```bash
+${parameter:-default word}
+    # If parameter is unset or null, the expansion of word is substituted.
+    # Otherwise, the value of parameter is substituded. 
+```
+#### 5 Executable commands
+##### 5.1 `sed`, a stream editor 
+
+```bash
+sed SCRIPT INPUTFILE ... # If the INPUTFILE is -, sed accepts the standard input
+```
+
+* Command-Line Option
+    *  `-e script, --expression=script` Add the commands in script to the set of commands to be run while processing the input.
+    * `-i[SUFFIX] --in-place[=SUFFIX]` This option specifies that files are to be edited in-place. GNU does this by creating a temporary file and sending output to this file rather than to standard output.
+
+* The `s` command is probably `the most important` in `sed` and has a lot of different options. The syntax of the `s` command is *`s/regexp/replacement/flags`*.
+
+* *replacement* The replacement can contain `\` references. which refer to the portion of the match which is contained between the n*th* \ . 
+
+* *regexp* [see regular expression][regular_expression_url]
+
+* *flags*
+    * `g` Apply the replacement to *all* matches to the *regexp*, not just the first.
+
+    * `number` Only replace the *numberth* match of the *regexp*.
+
+    * `p` If the substitution was made, then print the new pattern space.
+
+    * `w filename` If the subsititution was made, then write out the result to the named file.
+
+    * `I`,`i` makes sed match *regexp* in a case-insensitive manner.
+
+    * `M`,`m` causes ^ and $ to match respectively the emty string after a newline, and the emtry string before a new line.  
+
+      egular_expression_url]:https://www.gnu.org/software/sed/manual/sed.html#BRE-syntax	"BRE"
+
+* *Multiple commands syntax*
+
+    * Using new line when running a *sed* script from a file (using the -f option)
+
+        * ```bash
+          $ seq 6 | sed '1d
+                         2d
+                         5d'
+          2
+          4
+          6
+          ```
+    * A semicolon ( `;` ) can be use to separate the simple commands
+        * `seq 6 | sed '1d; 3d; 5d'`
