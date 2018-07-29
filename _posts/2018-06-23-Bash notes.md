@@ -225,3 +225,16 @@ sed SCRIPT INPUTFILE ... # If the INPUTFILE is -, sed accepts the standard input
           ```
     * A semicolon ( `;` ) can be use to separate the simple commands
         * `seq 6 | sed '1d; 3d; 5d'`
+
+##### 5.2 `cut` cut out selected portions of each line of a file 
+
+```bash
+cut -e d = -f 2 - # cut the stand input by delimiter by '=' and select the 2nd portion. 
+```
+
+##### 5.3 `read` Read a line from the standard input and split it into fields.
+
+```bash
+cat "hello world" | read -r line 
+```
+
