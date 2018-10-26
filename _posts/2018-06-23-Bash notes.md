@@ -27,6 +27,75 @@ In Bash, 0 means everything goes well, non 0 means error happens
 
 In a `Unix-like` operating systems, when a text file with a shebang is used as if it is an executable, the program loader parses the rest of the file's initial line as a `interpreter directive`.
 
+#### 0. Data Type in bash
+
+Basically, there are no data types in bash, a bash variable can contain a number, a character, a string of characters.  And basically a variable declared in bash has global scope, but sometimes we want it only to be  seen in the function, then we can use the keyword `local` before assigning	the value to variable. 
+
+Just like the below example. 
+
+```bash 
+#!/bin/bash
+HELLO=Hello 
+function hello {
+        local HELLO=World
+        echo $HELLO
+}
+echo $HELLO (Hello)
+hello       (World)
+echo $HELLO (Hello)
+```
+
+In bash, there is a kind of data type called array.  Array in bash have the following features:
+
+* There is no maximum limit to the size of an array
+* There is no any requirement that member variables should be indexed or assigned continuously. 
+
+```bash
+# Option 1, assigned a value VALUE to an array under index INDEX
+ARRAY[INDEX]=VALUE
+# Option 2, declare an array explicitly
+declare -a ARRAYNAME
+# Option 3, using compound assignments
+# each VALUE follow the pattern [indexnum=]string 
+# If indexnum is supplied, then assign the num to that index
+# Otherwise, the index of element assigned is the number of the last index that was assigned + 1.
+# If no index numbers are supplied, index starts at zero.
+ARRAY=(VALUE1 VALUE2 ... VALUEn)  
+```
+
+In order to `access` the value in the array, we need to use curly brace. If index number of `@` or `*`, then all numbers of an array are referenced.
+
+```bash
+# Assume ARRAY=(1 2 3)
+echo ${ARRAY[0]}
+1
+echo ${ARRAY[*]}
+1 2 3
+echo ${ARRAY[@]}
+1 2 3
+
+# Add an element into array
+ARRAY[3]=4
+
+echo ${ARRAY[*]}
+1 2 3 4
+```
+
+To `delete` an element we can use `unset` built-in to destroy arrays or members of an array
+
+```bash
+# Assume ARRAY=(1 2 3)
+unset ARRAY[1]
+
+echo ${ARRAY[*]}
+2 3
+
+unset ARRAY
+
+echo ${ARRAY[*]}
+<--no output-->
+```
+
 
 #### 1. Simple Command 
 
@@ -68,6 +137,10 @@ until test-commands
 	do consequent-commands
 done
 ```
+```bash
+
+```
+
 Execute consequent-commands as long as test-commands has an exit status of zero. The return status is the exit status of the last command executed in consequent-commands, or zero if none was executed.
 
 `while`
@@ -76,6 +149,10 @@ while test-commands
 	do consequent-commands
 done
 ```
+```
+
+```
+
 Execute consequent-commands as long as test-commands has an exit status of zero. The return status is the exit status of the last command executed in consequent-commands, or zero if none was executed.
 
 `for`
@@ -84,6 +161,10 @@ for name [[in [words ...]]]
 	do commands
 done
 ```
+```
+
+```
+
 Expand words, and execute commands once for each member in the resultant list, with name bound to the current member.
 
 ``` bash
@@ -91,6 +172,10 @@ for ((expr1 ; expr2 ; expr3))
 	do commands
 done
 ```
+```
+
+```
+
 This is command can be known as nested loop, where the total time of running will be `expr1 * expr2 * expr3`
 
 --------
@@ -107,6 +192,12 @@ if test-commands ; then
 	alternate-consequent-commands;]
 fi
 ```
+```
+
+```
+
+
+
 This is a very similar pattern as if-else of C language 
 
 -------
@@ -120,7 +211,12 @@ case word in
 	...
 esac
 ```
+```
+
+```
+
  a list of pattern and an associated command-list is known as a ***clause***, and `)` operator terminates a pattern list.
+
 ``` bash
 [[(] pattern [| pattern]...)
 		command-list ;;]
@@ -235,6 +331,13 @@ cut -e d = -f 2 - # cut the stand input by delimiter by '=' and select the 2nd p
 ##### 5.3 `read` Read a line from the standard input and split it into fields.
 
 ```bash
-cat "hello world" | read -r line 
+echo "hello world" | read -r line 
 ```
 
+#### 6 FAQ
+
+##### 6.1 How to read from standard input line by line? 
+
+##### 6.2 What are difference between ` `` `, `''` and `""` in bash?
+
+##### 6.3 What is the difference between `>` and `<` in bash?
