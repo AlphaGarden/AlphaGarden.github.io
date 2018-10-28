@@ -138,7 +138,12 @@ until test-commands
 done
 ```
 ```bash
-
+i=1
+until [ $i -gt 6 ]
+do
+	echo "Welcome $i times."
+	i=$(( i+1 ))
+done
 ```
 
 Execute consequent-commands as long as test-commands has an exit status of zero. The return status is the exit status of the last command executed in consequent-commands, or zero if none was executed.
@@ -149,8 +154,16 @@ while test-commands
 	do consequent-commands
 done
 ```
-```
-
+```bash
+#IFS is used to set field separator (default is while space). The -r option to read command disables backslash escaping (e.g., \n, \t). This is failsafe while read loop for reading text files.
+while IFS= read -r field1 filed2 field3 ... fieldN
+           do
+                 command1 on $field1
+                 command2 on $field1 and $field3
+                 ..
+                 ....
+                 commandN on $field1 ... $fieldN
+           done < "/path/to dir/file name with space"
 ```
 
 Execute consequent-commands as long as test-commands has an exit status of zero. The return status is the exit status of the last command executed in consequent-commands, or zero if none was executed.
@@ -161,8 +174,26 @@ for name [[in [words ...]]]
 	do commands
 done
 ```
-```
+```bash
+#!/bin/bash
+# A shell script to verify user password database
+files="/etc/passwd /etc/group /etc/shadow /etc/gshdow"
+for f in $files
+do
+	[  -f $f ] && echo "$f file found" || echo "*** Error - $f file missing."
+done
 
+# A simple shell script to display a file on screen passed as command line argument
+[ $# -eq 0 ] && { echo "Usage: $0 file1 file2 fileN"; exit 1; }
+
+# read all command line arguments via the for loop
+for f in $*
+   do
+   echo
+   echo "< $f >"
+   [ -f $f ] && cat $f || echo "$f not file."
+   echo "------------------------------------------------"
+done
 ```
 
 Expand words, and execute commands once for each member in the resultant list, with name bound to the current member.
@@ -172,10 +203,6 @@ for ((expr1 ; expr2 ; expr3))
 	do commands
 done
 ```
-```
-
-```
-
 This is command can be known as nested loop, where the total time of running will be `expr1 * expr2 * expr3`
 
 --------
@@ -192,11 +219,28 @@ if test-commands ; then
 	alternate-consequent-commands;]
 fi
 ```
+```bash
+# Check if $FILE exists or not
+if test ! -f "$FILE" 
+then   
+	echo "Error - $FILE not found or mcelog is not configured for 64 bit Linux systems."
+	exit 1
+fi
+
+#!/bin/bash
+read -p "Enter a number : " n
+if [ $n -gt 0 ]; then
+  echo "$n is a positive."
+elif [ $n -lt 0 ]
+then
+  echo "$n is a negative."
+elif [ $n -eq 0 ]
+then
+  echo "$n is zero number."
+else
+  echo "Oops! $n is not a number."
+fi
 ```
-
-```
-
-
 
 This is a very similar pattern as if-else of C language 
 
@@ -211,8 +255,24 @@ case word in
 	...
 esac
 ```
-```
-
+```bash
+case $space in
+[1-6]*)
+  Message="All is quiet."
+  ;;
+[7-8]*)
+  Message="Start thinking about cleaning out some stuff.  There's a partition that is $space % full."
+  ;;
+9[1-8])
+  Message="Better hurry with that new disk...  One partition is $space % full."
+  ;;
+99)
+  Message="I'm drowning here!  There's a partition at $space %!"
+  ;;
+*)
+  Message="I seem to be running with an nonexistent amount of disk space..."
+  ;;
+esac
 ```
 
  a list of pattern and an associated command-list is known as a ***clause***, and `)` operator terminates a pattern list.
@@ -244,13 +304,41 @@ esac
 
 `select`
 
+`select WORD [in LIST]; do RESPECTIVE-COMMANDS; done`
+
+```bash
+PS3='Please enter your choice: '
+options=("Option 1" "Option 2" "Option 3" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Option 1")
+            echo "you chose choice 1"
+            ;;
+        "Option 2")
+            echo "you chose choice 2"
+            ;;
+        "Option 3")
+            echo "you chose choice $REPLY which is $opt"
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+
+```
+
 `((...))`
+
 ``` bash
 (( expression ))
 ```
 If the value of the expression is non-zero,  the return status is 0;
 otherwise the return status is 1.
 `[[...]]`
+
 ``` bash
 [[ expression ]]
 ```
@@ -320,6 +408,7 @@ sed SCRIPT INPUTFILE ... # If the INPUTFILE is -, sed accepts the standard input
           6
           ```
     * A semicolon ( `;` ) can be use to separate the simple commands
+
         * `seq 6 | sed '1d; 3d; 5d'`
 
 ##### 5.2 `cut` cut out selected portions of each line of a file 
@@ -338,6 +427,36 @@ echo "hello world" | read -r line
 
 ##### 6.1 How to read from standard input line by line? 
 
-##### 6.2 What are difference between ` `` `, `''` and `""` in bash?
+First of all we should know what is `$IFS` variable in linux bash, `$IFS` (Internal ) is kind of special vairiable in bash and usually used in `read bultetin command` and we should know about the operator `<`  which is mots commonly used to redirect the file contents.
 
-##### 6.3 What is the difference between `>` and `<` in bash?
+The shell treats each character of IFS as a delimiter, and splits the results of the other expansions into words on these characters. If IFS is unset, or its value is exactly `<space><tab><newline>`, the 
+
+we put the following string int he file `/tmp/text.txt`
+
+```wiki
+cyberciti.biz|202.54.1.1|/home/httpd|ftpcbzuser
+nixcraft.com|202.54.1.2|/home/httpd|ftpnixuser
+```
+
+```bash
+#!/bin/bash
+# setupapachevhost.sh - Apache webhosting automation demo script
+file=/tmp/text.txt
+
+# set the Internal Field Separator to |
+IFS='|'
+while read -r domain ip webroot ftpusername
+do
+        printf "*** Adding %s to httpd.conf...\n" $domain
+        printf "Setting virtual host using %s ip...\n" $ip
+        printf "DocumentRoot is set to %s\n" $webroot
+        printf "Adding ftp access for %s using %s ftp account...\n\n" $domain $ftpusername
+	
+done < "$file"
+```
+
+
+
+##### 6.2 What are difference between backtick/backquote  ` `` ` and `$()` in bash?
+
+Bascially,  backquote and `$()` almost serve the same purpose of putting the output after executing the command inside it, then the back quote is quite more original command, and this kind of syntax is kind of confusing comparing to single quote.  And bascially, there some other kind of usecases like `$(command)`,`${vairiable}`,`$((expression))`.
